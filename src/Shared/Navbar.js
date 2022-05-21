@@ -6,17 +6,17 @@ const Navbar = () => {
     const [navbarOpen, setNavbarOpen] = React.useState(false);
 
     return (
-        <nav className="relative flex flex-wrap items-center justify-between px-2 py-2 bg-primary mb-3">
-            <div className="container px-4 mx-auto flex flex-wrap items-center justify-between">
+        <nav className="relative flex flex-wrap justify-between px-2 py-2 bg-primary mb-3">
+            <div className="container px-4 mx-auto flex flex-wrap justify-between">
                 <div className="w-full relative flex justify-between lg:w-auto lg:static lg:block lg:justify-start">
-                    <a
-                        className="text-xl font-bold leading-relaxed inline-block mr-4 py-2 whitespace-nowrap uppercase text-base-100"
-                        href="#pablo"
+                    <Link
+                        className="text-xl font-bold inline-block mr-4 py-2 whitespace-nowrap uppercase text-base-100"
+                        to="/"
                     >
                         ToolsNestBD
-                    </a>
+                    </Link>
                     <button
-                        className="text-base-100 cursor-pointer text-xl leading-none px-3 py-1 border border-solid border-transparent rounded bg-transparent block lg:hidden outline-none focus:outline-none"
+                        className="btn btn-primary text-3xl lg:hidden hover:outline-75"
                         type="button"
                         onClick={() => setNavbarOpen(!navbarOpen)}
                     >
@@ -25,7 +25,7 @@ const Navbar = () => {
                 </div>
                 <div
                     className={
-                        "lg:flex flex-grow items-center" +
+                        "lg:flex flex-grow" +
                         (navbarOpen ? " flex" : " hidden")
                     }
                     id="example-navbar-danger"
@@ -33,7 +33,7 @@ const Navbar = () => {
                     <ul className="flex flex-col lg:flex-row list-none lg:ml-auto lg:w-auto sm:w-full">
                         <li className="nav-item">
                             <Link
-                                className="px-4 py-3 flex items-center text-sm uppercase font-bold leading-snug text-base-100 hover:opacity-75"
+                                className="px-4 py-3 flex text-sm uppercase font-bold text-base-100 hover:opacity-75"
                                 to="/"
                             >
                                 <span className="ml-2">Home</span>
@@ -41,7 +41,7 @@ const Navbar = () => {
                         </li>
                         <li className="nav-item">
                             <Link
-                                className="px-4 py-3 flex items-center text-sm uppercase font-bold leading-snug text-base-100 hover:opacity-75"
+                                className="px-4 py-3 flex text-sm uppercase font-bold text-base-100 hover:opacity-75"
                                 to="/login"
                             >
                                 <span className="ml-2">Login</span>
