@@ -45,10 +45,10 @@ const Banner = () => {
                     </button>
                 </div>
                 <div className='shrink-0'>
-                    <img data-aos='fade-left'
-                        data-aos-delay='600'
-                        data-aos-duration='800'
-                        src="https://pngimg.com/uploads/drill/drill_PNG23.png"
+                    <img data-aos='zoom-in'
+                        data-aos-delay='1500'
+                        data-aos-duration='850'
+                        src="https://i.ibb.co/Zm7X48b/drill-PNG23.png"
                         className='h-full max-w-md' alt='' />
                 </div>
             </div>
