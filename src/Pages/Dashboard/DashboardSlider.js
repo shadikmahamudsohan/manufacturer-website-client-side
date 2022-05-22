@@ -17,6 +17,9 @@ const DashboardSlider = ({ children }) => {
                     <li>
                         <NavLink to="/dashboard/add-reviews">Add Reviews</NavLink>
                     </li>
+                    <li>
+                        <NavLink to="/dashboard/my-profile">My Profile</NavLink>
+                    </li>
                 </ul>
 
             </div>

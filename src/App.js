@@ -8,10 +8,13 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import { useEffect } from 'react';
 import Purchase from './Pages/Purchase';
-import Dashboard from './Pages/Dashboard/Dashboard';
 import MyOrders from './Pages/Dashboard/MyOrders';
 import AddReviews from './Pages/Dashboard/AddReviews';
 import RequireAuth from './Pages/Authentication/RequireAuth';
+import MyProfile from './Pages/Dashboard/MyProfile';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import Dashboard from './Pages/Dashboard/Dashboard';
 
 function App() {
   useEffect(() => {
@@ -20,6 +23,7 @@ function App() {
   return (
     <div className="App">
       <Navbar>
+        <ToastContainer />
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/purchase/:id' element={<Purchase />} />
@@ -31,6 +35,7 @@ function App() {
           } >
             <Route index element={<MyOrders />}></Route>
             <Route path="add-reviews" element={<AddReviews />}></Route>
+            <Route path="my-profile" element={<MyProfile />}></Route>
           </Route>
           <Route path='*' element={<NotFound />} />
         </Routes>
