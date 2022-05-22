@@ -32,8 +32,11 @@ const Tools = () => {
         },
     ];
     return (
-        <div className='container mx-auto grid grid-cols-1 lg:grid-cols-3 my-12'>
-            {data.splice(0, 3).map(data => <SingleTools key={data._id} data={data} />)}
+        <div className="container mx-auto">
+            <h1 className="text-center font-bold text-4xl text-primary my-12">Our Best Manufacturing Tools</h1>
+            <div className='grid grid-cols-1 lg:grid-cols-3 my-12'>
+                {data.splice(0, 3).map(data => <SingleTools key={data._id} data={data} />)}
+            </div>
         </div>
     );
 };

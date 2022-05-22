@@ -1,9 +1,12 @@
+import { signOut } from 'firebase/auth';
 import React, { useState } from 'react';
+import { useAuthState } from 'react-firebase-hooks/auth';
 import { NavLink, useLocation } from 'react-router-dom';
+import auth from '../firebase/firebase.init';
 
 const Navbar = ({ children }) => {
     const [dark, setDark] = useState(false);
-    const admin = true;
+    const [user] = useAuthState(auth);
     const { pathname } = useLocation();
 
     const links = <>
@@ -12,30 +15,23 @@ const Navbar = ({ children }) => {
                 Home
             </NavLink>
         </li>
-        {admin && <li>
-            <NavLink to='/dashboard/add-service' className='rounded-lg'>
+        <li>
+            <NavLink to='/about' className='rounded-lg'>
+                Blog
+            </NavLink>
+        </li>
+        {user && <li>
+            <NavLink to='/dashboard' className='rounded-lg'>
                 Dashboard
             </NavLink>
         </li>}
         <li>
-            <NavLink to='/about' className='rounded-lg'>
-                About
-            </NavLink>
-        </li>
-        <li>
-            <NavLink to='/services' className='rounded-lg'>
-                Services
-            </NavLink>
-        </li>
-        <li>
-            <NavLink to='/contact' className='rounded-lg'>
-                Contact
-            </NavLink>
-        </li>
-        <li>
-            <NavLink to='/login' className='rounded-lg'>
-                Login
-            </NavLink>
+            {user ? <button onClick={() => signOut(auth)} className='btn btn-error rounded-lg'>
+                Log Out
+            </button>
+                : <NavLink to='/login' className='rounded-lg'>
+                    Log In
+                </NavLink>}
         </li>
         <label class='swap swap-rotate'>
             <input type='checkbox' onClick={() => setDark(!dark)} />
@@ -61,11 +57,11 @@ const Navbar = ({ children }) => {
         <div data-theme={dark ? 'dark' : 'light'} className='drawer drawer-end'>
             <input id='my-drawer-3' type='checkbox' className='drawer-toggle' />
             <div className='drawer-content flex flex-col'>
-                <div className='w-full navbar fixed top-0 z-50 lg:px-20 bg-primary text-base-100'>
+                <div className='w-full navbar fixed top-0 z-50 lg:px-20 bg-base-100 py-3 shadow-2xl'>
                     {pathname?.includes('dashboard') && <label for="my-drawer-2" tabindex="0" class="btn btn-ghost lg:hidden">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7" /></svg>
                     </label>}
-                    <div className='flex-1 px-2 mx-2 text-2xl'>Clean Co.</div>
+                    <NavLink to='/' className='flex-1 px-2 mx-2 text-2xl font-bold'>ToolsNestBD</NavLink>
                     <div className='flex-none lg:hidden'>
                         <label htmlFor='my-drawer-3' className='btn btn-square btn-ghost'>
                             <svg
