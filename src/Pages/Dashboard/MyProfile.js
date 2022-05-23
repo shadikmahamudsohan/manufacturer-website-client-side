@@ -181,9 +181,6 @@ const MyProfile = () => {
                             </label>
                         </div>
                     </div>
-
-
-
                     <input className='btn w-full text-white' type="submit" value="Update" />
                 </form>
             </div>
