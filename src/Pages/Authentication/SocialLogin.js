@@ -3,21 +3,20 @@ import auth from '../../firebase/firebase.init';
 import { useSignInWithGoogle } from 'react-firebase-hooks/auth';
 import LoadingSpinner from '../../Shared/LoadingSpinner';
 import { FcGoogle } from 'react-icons/fc';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const SocialLogin = () => {
     const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth);
     let navigate = useNavigate();
-    let location = useLocation();
+    const location = localStorage.getItem('location');
 
-    let from = location.state?.from?.pathname || "/";
 
     const handleLogin = () => {
         signInWithGoogle();
     };
 
     if (user) {
-        navigate(from, { replace: true });
+        navigate(location);
     }
     if (loading) {
         return <LoadingSpinner />;

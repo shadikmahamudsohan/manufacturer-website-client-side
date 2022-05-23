@@ -15,6 +15,7 @@ import MyProfile from './Pages/Dashboard/MyProfile';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Dashboard from './Pages/Dashboard/Dashboard';
+import SignUp from './Pages/Authentication/SignUp';
 
 function App() {
   useEffect(() => {
@@ -28,6 +29,7 @@ function App() {
           <Route path='/' element={<Home />} />
           <Route path='/purchase/:id' element={<Purchase />} />
           <Route path='/login' element={<Login />} />
+          <Route path='/signup' element={<SignUp />} />
           <Route path="/dashboard" element={
             <RequireAuth>
               <Dashboard />

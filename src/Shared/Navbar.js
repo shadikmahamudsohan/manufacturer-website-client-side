@@ -9,6 +9,19 @@ const Navbar = ({ children }) => {
     const [dark, setDark] = useState(false);
     const [user] = useAuthState(auth);
     const { pathname } = useLocation();
+    const location = useLocation();
+
+    // 
+    if (location?.state?.from?.pathname) {
+        localStorage.setItem('location', location?.state?.from?.pathname);
+    }
+
+    const loginClicked = () => {
+        localStorage.setItem('location', pathname);
+    };
+    const logOutClicked = () => {
+        signOut(auth);
+    };
 
     const links = <>
         <li>
@@ -17,7 +30,7 @@ const Navbar = ({ children }) => {
             </NavLink>
         </li>
         <li>
-            <NavLink to='/about' className='rounded-lg'>
+            <NavLink to='/blog' className='rounded-lg'>
                 Blog
             </NavLink>
         </li>
@@ -27,10 +40,10 @@ const Navbar = ({ children }) => {
             </NavLink>
         </li>}
         <li>
-            {user ? <button onClick={() => signOut(auth)} className='btn btn-error rounded-lg'>
+            {user ? <button onClick={logOutClicked} className='btn btn-error rounded-lg'>
                 Log Out
             </button>
-                : <NavLink to='/login' className='rounded-lg'>
+                : <NavLink to='/login' onClick={loginClicked} className='rounded-lg'>
                     Log In
                 </NavLink>}
         </li>

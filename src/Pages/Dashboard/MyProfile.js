@@ -1,7 +1,7 @@
 import React from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import auth from '../../firebase/firebase.init';
 import LoadingSpinner from '../../Shared/LoadingSpinner';
 
@@ -28,6 +28,8 @@ const MyProfile = () => {
             linkedIn: data?.linkedIn,
         };
         console.log(userData);
+        toast.success('Profile Updated');
+        reset();
     };
 
     return (
@@ -38,7 +40,7 @@ const MyProfile = () => {
                     <div class="w-12 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
                         <img src={user?.photoURL} alt='' />
                     </div>
-                </div> : <div class="avatar online placeholder">
+                </div> : <div class="avatar online placeholder absolute right-5 top-5">
                     <div class="bg-neutral-focus text-neutral-content rounded-full w-12">
                         <span>{user?.email.slice(0, 2)}</span>
                     </div>
@@ -131,7 +133,7 @@ const MyProfile = () => {
                                     }
                                 })}
                             />
-                            <label className="label">
+                            <label className="label mt-2">
                                 {errors.linkedIn?.type === 'required' && <span className="label-text-alt text-red-500">{errors?.linkedIn.message}</span>}
                             </label>
                         </div>
