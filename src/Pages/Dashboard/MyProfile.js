@@ -1,23 +1,53 @@
-import React from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useForm } from 'react-hook-form';
+import { useQuery } from 'react-query';
 import { toast } from 'react-toastify';
 import auth from '../../firebase/firebase.init';
 import LoadingSpinner from '../../Shared/LoadingSpinner';
 
 const MyProfile = () => {
-    const [user, loading, error] = useAuthState(auth);
+    const [user, loading, updateError] = useAuthState(auth);
+    // const [data, setData] = useState({});
     const { register, formState: { errors }, handleSubmit, reset } = useForm();
+
+    // const { isLoading, error, data } = useQuery('userData', () =>
+    //     fetch(`http://localhost:5000/get-user/${user?.email}`).then(res =>
+    //         res.json()
+    //     )
+    // );
+    // if (isLoading) {
+    //     return <LoadingSpinner />;
+    // }
+    // console.log(data);
+
+    // useEffect(() => {
+    //     fetch(`http://localhost:5000/get-user/${user?.email}`)
+    //         .then(res => res.json())
+    //         .then(data => setData(data));
+    // }, [user?.email]);
+
+
+    const url = `http://localhost:5000/get-user/${user?.email}`;
+    const { error, data, refetch } = useQuery('repoData', () =>
+        fetch(url).then(res =>
+            res.json()
+        )
+    );
+
+    if (data?.email !== user?.email) {
+        refetch();
+    }
 
     if (loading) {
         return <LoadingSpinner />;
     }
-    if (error) {
-        return <h1 className='text-5xl font-bold text-danger mt-12'>{error.message}</h1>;
+    if (updateError) {
+        return <h1 className='text-5xl font-bold text-danger mt-12'>{updateError?.message || error.message}</h1>;
     }
 
-
-    const onSubmit = data => {
+    const onSubmit = async data => {
         // signInWithEmailAndPassword(data.email, data.password);
         const userData = {
             name: user?.displayName,
@@ -27,7 +57,10 @@ const MyProfile = () => {
             eduction: data?.eduction,
             linkedIn: data?.linkedIn,
         };
-        console.log(userData);
+        const res = await axios.put(`http://localhost:5000/update-user/${user?.email}`, (userData));
+        if (res) {
+            refetch();
+        }
         toast.success('Profile Updated');
         reset();
     };
@@ -47,8 +80,18 @@ const MyProfile = () => {
                 </div>}
             </div>
             <div class="card-body">
-                <h1 className='text-xl'><strong>Name: </strong>{user?.displayName}</h1>
-                <h1 className='text-xl'><strong>Email: </strong>{user?.email}</h1>
+                {user &&
+                    <>
+                        <h1 className='text-xl'><strong>Name: </strong>{user?.displayName}</h1>
+                        <h1 className='text-xl'><strong>Email: </strong>{user?.email}</h1>
+                    </>}
+                {(data?.email === user.email) &&
+                    <>
+                        <h1 className='text-xl'><strong>Location: </strong>{data.location}</h1>
+                        <h1 className='text-xl'><strong>Phone: </strong>{data.phone}</h1>
+                        <h1 className='text-xl'><strong>Eduction: </strong>{data.eduction}</h1>
+                        <h1 className='text-xl'><strong>LinkedIn: </strong>{data.linkedIn}</h1>
+                    </>}
             </div>
             {/* form for user's information */}
             <div className="card-body">

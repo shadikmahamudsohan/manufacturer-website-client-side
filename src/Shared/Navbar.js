@@ -11,7 +11,6 @@ const Navbar = ({ children }) => {
     const { pathname } = useLocation();
     const location = useLocation();
 
-    // 
     if (location?.state?.from?.pathname) {
         localStorage.setItem('location', location?.state?.from?.pathname);
     }
