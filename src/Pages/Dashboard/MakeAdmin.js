@@ -25,24 +25,26 @@ const MakeAdmin = () => {
     }
 
     return (
-        <div className='lg:w-3/5 sm:w-auto'>
-            <h1 className='text-center mb-5 text-primary text-3xl font-bold'>My Admin for this website</h1>
-            <div className="overflow-x-auto shadow-2xl">
-                <table className="table w-full">
-                    <thead>
-                        <tr>
-                            <th></th>
-                            <th>Name</th>
-                            <th>Make Admin</th>
-                            <th>Remove User</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {
-                            users?.map((user, index) => <AdminRow key={user._id} user={user} index={index} refetch={refetch} />)
-                        }
-                    </tbody>
-                </table>
+        <div className="flex justify-center items-center my-12">
+            <div className='lg:w-3/5 sm:w-full'>
+                <h1 className='text-center mb-5 text-primary text-3xl font-bold'>My Admin for this website</h1>
+                <div className="overflow-x-auto shadow-2xl rounded-3xl">
+                    <table className="table w-full">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Name</th>
+                                <th>Make Admin</th>
+                                <th>Remove User</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {
+                                users?.map((user, index) => <AdminRow key={user._id} user={user} index={index} refetch={refetch} />)
+                            }
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     );

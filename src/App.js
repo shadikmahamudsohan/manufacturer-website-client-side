@@ -20,6 +20,8 @@ import Dashboard from './Pages/Dashboard/Dashboard';
 import SignUp from './Pages/Authentication/SignUp';
 import MakeAdmin from './Pages/Dashboard/MakeAdmin';
 import RequireAdmin from './Pages/Authentication/RequireAdmin';
+import AddProduct from './Pages/Dashboard/AddProduct';
+import ManageProducts from './Pages/Dashboard/ManageProducts';
 
 function App() {
   useEffect(() => {
@@ -44,6 +46,12 @@ function App() {
             <Route path="my-profile" element={<MyProfile />}></Route>
             <Route path="make-admin" element={<RequireAdmin>
               <MakeAdmin />
+            </RequireAdmin>}></Route>
+            <Route path="add-product" element={<RequireAdmin>
+              <AddProduct />
+            </RequireAdmin>}></Route>
+            <Route path="manage-product" element={<RequireAdmin>
+              <ManageProducts />
             </RequireAdmin>}></Route>
           </Route>
           <Route path='*' element={<NotFound />} />

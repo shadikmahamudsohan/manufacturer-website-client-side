@@ -2,7 +2,7 @@ import React from 'react';
 
 const Banner = () => {
     return (
-        <div className='bg-gradient-to-r from-base-100 to-accent hero relative mt-16 lg:h-screen md:h-auto'>
+        <div className='bg-gradient-to-r from-base-100 to-accent hero relative lg:h-screen md:h-auto'>
             <div className='hero-content flex-col lg:flex-row'>
                 <div>
                     <p

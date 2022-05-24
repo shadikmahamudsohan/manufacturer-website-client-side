@@ -4,14 +4,14 @@ import useAdmin from '../../Hooks/useAdmin';
 const DashboardSlider = ({ children }) => {
     const [admin] = useAdmin();
     return (
-        <div class="drawer drawer-mobile mt-16 bg-accent">
+        <div class="drawer drawer-mobile bg-accent">
             <input id="my-drawer-2" type="checkbox" class="drawer-toggle" />
-            <div class="drawer-content flex flex-col items-center justify-center">
+            <div class="drawer-content">
                 {children}
             </div>
             <div class="drawer-side">
                 <label for="my-drawer-2" class="drawer-overlay"></label>
-                <ul class="menu p-4 overflow-y-auto w-80 bg-base-100 text-base-content">
+                <ul class="menu p-4 overflow-y-auto w-48 bg-base-100 text-base-content">
                     <li>
                         <NavLink to="/dashboard/">My Orders</NavLink>
                     </li>
@@ -25,6 +25,12 @@ const DashboardSlider = ({ children }) => {
                         admin && <>
                             <li>
                                 <NavLink to="/dashboard/make-admin">Make Admin</NavLink>
+                            </li>
+                            <li>
+                                <NavLink to="/dashboard/add-product">Add A Product</NavLink>
+                            </li>
+                            <li>
+                                <NavLink to="/dashboard/manage-product">Manage Product</NavLink>
                             </li>
                         </>
                     }
