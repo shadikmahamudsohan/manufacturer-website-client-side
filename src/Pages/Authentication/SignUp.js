@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useCreateUserWithEmailAndPassword, useUpdateProfile } from 'react-firebase-hooks/auth';
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from 'react-router-dom';
 import auth from '../../firebase/firebase.init';
+import useToken from '../../Hooks/useToken';
 import useUser from '../../Hooks/useUser';
 import LoadingSpinner from '../../Shared/LoadingSpinner';
 import SocialLogin from './SocialLogin';
@@ -15,6 +16,8 @@ const Signup = () => {
         loading,
         error,
     ] = useCreateUserWithEmailAndPassword(auth);
+
+    const [token] = useToken(user);
     const res = useUser();
     if (res) {
         console.log(res);
@@ -26,9 +29,11 @@ const Signup = () => {
     let navigate = useNavigate();
     const location = localStorage.getItem('location');
 
-    if (user) {
-        navigate(location);
-    }
+    useEffect(() => {
+        if (token) {
+            navigate(location);
+        }
+    }, [token, navigate, location]);
 
 
     let signInError;

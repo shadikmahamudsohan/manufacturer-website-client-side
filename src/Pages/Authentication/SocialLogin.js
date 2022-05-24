@@ -1,23 +1,27 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import auth from '../../firebase/firebase.init';
 import { useSignInWithGoogle } from 'react-firebase-hooks/auth';
 import LoadingSpinner from '../../Shared/LoadingSpinner';
 import { FcGoogle } from 'react-icons/fc';
 import { useNavigate } from 'react-router-dom';
+import useToken from '../../Hooks/useToken';
 
 const SocialLogin = () => {
     const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth);
     let navigate = useNavigate();
     const location = localStorage.getItem('location');
-
+    const [token] = useToken(user);
 
     const handleLogin = () => {
         signInWithGoogle();
     };
 
-    if (user) {
-        navigate(location);
-    }
+    useEffect(() => {
+        if (token) {
+            navigate(location);
+        }
+    }, [token, navigate, location]);
+
     if (loading) {
         return <LoadingSpinner />;
     }

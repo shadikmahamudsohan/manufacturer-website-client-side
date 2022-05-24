@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSendPasswordResetEmail, useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import auth from '../../firebase/firebase.init';
+import useToken from '../../Hooks/useToken.js';
 import LoadingSpinner from '../../Shared/LoadingSpinner';
 import SocialLogin from './SocialLogin';
 
@@ -16,6 +17,9 @@ const Login = () => {
     ] = useSignInWithEmailAndPassword(auth);
     const [sendPasswordResetEmail, sending] = useSendPasswordResetEmail(auth);
 
+    const [token] = useToken(user);
+
+
     const [email, setEmail] = useState();
 
     const { register, formState: { errors }, handleSubmit } = useForm();
@@ -25,9 +29,14 @@ const Login = () => {
     const location = localStorage.getItem('location');
 
 
-    if (user) {
-        navigate(location);
-    }
+    // if (user) {
+    //     navigate(location);
+    // }
+    useEffect(() => {
+        if (token) {
+            navigate(location);
+        }
+    }, [token, navigate, location]);
 
     let signInError;
 
