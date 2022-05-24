@@ -26,9 +26,9 @@ const AddReviews = () => {
                 <h1 className='text-secondary text-3xl text-center mb-5 font-bold'>My reviews</h1>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div>
-                        {/* 1. location input */}
+                        {/* 1. description input */}
                         <label className="label">
-                            <span className="label-text">Your location</span>
+                            <span className="label-text">Your Description</span>
                         </label>
                         <textarea
                             type="text"

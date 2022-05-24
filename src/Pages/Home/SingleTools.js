@@ -7,23 +7,23 @@ const SingleTools = ({ data }) => {
     const {
         _id,
         name,
-        img,
+        image,
         description,
-        perUnitPrice,
-        minimumOrder,
-        availableQuantity } = data;
+        parUnitPrice,
+        minOrder,
+        available } = data;
     const handlePurchase = (id) => {
         navigate(`purchase/${id}`);
     };
     return (
         <div class="card lg:w-96 sm:w-full bg-base-100 hover:bg-base-300 shadow-xl hover:translate-y-[-10px] transition outline outline-0 outline-primary hover:outline-2" >
-            <figure><img src={img} alt="Shoes" className='w-full' /></figure>
+            <figure><img src={image} alt="Shoes" className='w-full' /></figure>
             <div class="card-body">
                 <h2 class="card-title text-secondary">{name}</h2>
-                <p><strong>Per Unit Price: </strong>{perUnitPrice}$</p>
+                <p><strong>Per Unit Price: </strong>{parUnitPrice}$</p>
                 {seeMore && <>
-                    <p><strong>Minimum Order: </strong>{minimumOrder}</p>
-                    <p><strong>Available Quantity: </strong>{availableQuantity}</p>
+                    <p><strong>Minimum Order: </strong>{minOrder}</p>
+                    <p><strong>Available Quantity: </strong>{available}</p>
                     <p><strong>Description: </strong>{description}</p>
                 </>}
                 <div className="flex justify-between items-center">

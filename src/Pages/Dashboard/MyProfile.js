@@ -9,24 +9,7 @@ import LoadingSpinner from '../../Shared/LoadingSpinner';
 
 const MyProfile = () => {
     const [user, loading, updateError] = useAuthState(auth);
-    // const [data, setData] = useState({});
     const { register, formState: { errors }, handleSubmit, reset } = useForm();
-
-    // const { isLoading, error, data } = useQuery('userData', () =>
-    //     fetch(`http://localhost:5000/get-user/${user?.email}`).then(res =>
-    //         res.json()
-    //     )
-    // );
-    // if (isLoading) {
-    //     return <LoadingSpinner />;
-    // }
-    // console.log(data);
-
-    // useEffect(() => {
-    //     fetch(`http://localhost:5000/get-user/${user?.email}`)
-    //         .then(res => res.json())
-    //         .then(data => setData(data));
-    // }, [user?.email]);
 
 
     const url = `http://localhost:5000/get-user/${user?.email}`;
@@ -49,7 +32,6 @@ const MyProfile = () => {
     }
 
     const onSubmit = async data => {
-        // signInWithEmailAndPassword(data.email, data.password);
         const userData = {
             name: user?.displayName,
             email: user?.email,
@@ -65,7 +47,6 @@ const MyProfile = () => {
         toast.success('Profile Updated');
         reset();
     };
-
     return (
         <div className="flex justify-center items-center my-12">
             <div class="card w-full lg:w-3/5 bg-base-100 shadow-xl relative">
