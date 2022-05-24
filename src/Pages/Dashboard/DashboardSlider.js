@@ -1,7 +1,8 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-
+import useAdmin from '../../Hooks/useAdmin';
 const DashboardSlider = ({ children }) => {
+    const [admin] = useAdmin();
     return (
         <div class="drawer drawer-mobile mt-16 bg-accent">
             <input id="my-drawer-2" type="checkbox" class="drawer-toggle" />
@@ -20,6 +21,13 @@ const DashboardSlider = ({ children }) => {
                     <li>
                         <NavLink to="/dashboard/my-profile">My Profile</NavLink>
                     </li>
+                    {
+                        admin && <>
+                            <li>
+                                <NavLink to="/dashboard/make-admin">Make Admin</NavLink>
+                            </li>
+                        </>
+                    }
                 </ul>
 
             </div>

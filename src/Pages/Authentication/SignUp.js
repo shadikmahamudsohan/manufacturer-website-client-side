@@ -3,6 +3,7 @@ import { useCreateUserWithEmailAndPassword, useUpdateProfile } from 'react-fireb
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from 'react-router-dom';
 import auth from '../../firebase/firebase.init';
+import useUser from '../../Hooks/useUser';
 import LoadingSpinner from '../../Shared/LoadingSpinner';
 import SocialLogin from './SocialLogin';
 
@@ -14,7 +15,11 @@ const Signup = () => {
         loading,
         error,
     ] = useCreateUserWithEmailAndPassword(auth);
+    const res = useUser();
+    if (res) {
+        console.log(res);
 
+    }
     const [updateProfile, updating, updateError] = useUpdateProfile(auth);
 
 
@@ -35,7 +40,6 @@ const Signup = () => {
     if (error || updateError) {
         signInError = <p className='text-red-500'><small>{error?.message || updateError.message}</small></p>;
     }
-
 
     const onSubmit = async data => {
         await createUserWithEmailAndPassword(data?.email, data?.password);

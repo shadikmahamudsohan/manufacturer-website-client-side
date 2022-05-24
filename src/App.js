@@ -18,6 +18,8 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Dashboard from './Pages/Dashboard/Dashboard';
 import SignUp from './Pages/Authentication/SignUp';
+import MakeAdmin from './Pages/Dashboard/MakeAdmin';
+import RequireAdmin from './Pages/Authentication/RequireAdmin';
 
 function App() {
   useEffect(() => {
@@ -40,6 +42,9 @@ function App() {
             <Route index element={<MyOrders />}></Route>
             <Route path="add-reviews" element={<AddReviews />}></Route>
             <Route path="my-profile" element={<MyProfile />}></Route>
+            <Route path="make-admin" element={<RequireAdmin>
+              <MakeAdmin />
+            </RequireAdmin>}></Route>
           </Route>
           <Route path='*' element={<NotFound />} />
         </Routes>

@@ -43,6 +43,7 @@ const MyProfile = () => {
     if (loading) {
         return <LoadingSpinner />;
     }
+
     if (updateError) {
         return <h1 className='text-5xl font-bold text-danger mt-12'>{updateError?.message || error.message}</h1>;
     }
@@ -85,7 +86,7 @@ const MyProfile = () => {
                         <h1 className='text-xl'><strong>Name: </strong>{user?.displayName}</h1>
                         <h1 className='text-xl'><strong>Email: </strong>{user?.email}</h1>
                     </>}
-                {(data?.email === user.email) &&
+                {(data?.email === user.email && data?.location) &&
                     <>
                         <h1 className='text-xl'><strong>Location: </strong>{data.location}</h1>
                         <h1 className='text-xl'><strong>Phone: </strong>{data.phone}</h1>

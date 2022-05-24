@@ -4,13 +4,14 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { NavLink, useLocation } from 'react-router-dom';
 import auth from '../firebase/firebase.init';
 import { GrClose } from 'react-icons/gr';
+import useUser from '../Hooks/useUser';
 
 const Navbar = ({ children }) => {
     const [dark, setDark] = useState(false);
     const [user] = useAuthState(auth);
     const { pathname } = useLocation();
+    useUser();
     const location = useLocation();
-
     if (location?.state?.from?.pathname) {
         localStorage.setItem('location', location?.state?.from?.pathname);
     }
