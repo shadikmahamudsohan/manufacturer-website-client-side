@@ -1,12 +1,14 @@
 import { signOut } from 'firebase/auth';
-import React from 'react';
+import React, { useState } from 'react';
 import { useQuery } from 'react-query';
 import { toast } from 'react-toastify';
 import auth from '../../firebase/firebase.init';
 import LoadingSpinner from '../../Shared/LoadingSpinner';
 import AdminRow from './AdminRow';
+import UserDeleteConfirm from './UserDeleteConfirm';
 
 const MakeAdmin = () => {
+    const [removeAdmin, setRemoveAdmin] = useState(null);
     const { data: users, isLoading, refetch } = useQuery('users', () => fetch('http://localhost:5000/all-user', {
         method: 'GET',
         headers: {
@@ -40,12 +42,17 @@ const MakeAdmin = () => {
                         </thead>
                         <tbody>
                             {
-                                users?.map((user, index) => <AdminRow key={user._id} user={user} index={index} refetch={refetch} />)
+                                users?.map((user, index) => <AdminRow key={user._id} user={user} index={index} refetch={refetch} setRemoveAdmin={setRemoveAdmin} />)
                             }
                         </tbody>
                     </table>
                 </div>
             </div>
+            {removeAdmin && <UserDeleteConfirm
+                removeAdmin={removeAdmin}
+                refetch={refetch}
+                setRemoveAdmin={setRemoveAdmin}
+            />}
         </div>
     );
 };

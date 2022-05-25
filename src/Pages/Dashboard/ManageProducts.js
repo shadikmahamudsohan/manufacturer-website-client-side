@@ -10,18 +10,18 @@ import ProductRow from './ProductRow';
 const ManageProducts = () => {
     const [deletingProduct, setDeletingDoctor] = useState(null);
 
-    const { data: users, isLoading, refetch } = useQuery('users', () => fetch('http://localhost:5000/get-product', {
+    const { data: users, isLoading, refetch } = useQuery('users', () => fetch('http://localhost:5000/get-all-product', {
         method: 'GET',
-        // headers: {
-        //     authorization: `Bearer ${localStorage.getItem('accessToken')}`
-        // }
+        headers: {
+            authorization: `Bearer ${localStorage.getItem('accessToken')}`
+        }
     }).then(res => res.json()));
 
-    // if (users?.message === 'Forbidden access') {
-    //     signOut(auth);
-    //     toast.error('JWT expired or not found');
-    //     return;
-    // }
+    if (users?.message === 'Forbidden access') {
+        signOut(auth);
+        toast.error('JWT expired or not found');
+        return;
+    }
 
     const getData = (data) => {
         setDeletingDoctor(data);

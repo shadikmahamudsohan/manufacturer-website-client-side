@@ -3,10 +3,10 @@ import React from 'react';
 import { toast } from 'react-toastify';
 import auth from '../../firebase/firebase.init';
 
-const ProductDeleteConfirm = ({ deletingProduct, refetch, setDeletingDoctor }) => {
-    const { name, _id, description } = deletingProduct;
+const UserDeleteConfirm = ({ removeAdmin, refetch, setRemoveAdmin }) => {
+    const { email } = removeAdmin;
     const handleDelete = () => {
-        fetch(`http://localhost:5000/delete-product/${_id}`, {
+        fetch(`http://localhost:5000/delete-product/${email}`, {
             method: 'DELETE',
             headers: {
                 authorization: `Bearer ${localStorage.getItem('accessToken')}`
@@ -15,9 +15,9 @@ const ProductDeleteConfirm = ({ deletingProduct, refetch, setDeletingDoctor }) =
             .then(res => res.json())
             .then(data => {
                 if (data.deletedCount) {
-                    toast.success(`Product:  is deleted`);
+                    toast.success(`User: ${email} is deleted`);
                     refetch();
-                    setDeletingDoctor(null);
+                    setRemoveAdmin(null);
                 }
                 if (data.message === "Forbidden access") {
                     toast.error("Forbidden access");
@@ -27,14 +27,13 @@ const ProductDeleteConfirm = ({ deletingProduct, refetch, setDeletingDoctor }) =
     };
     return (
         <div>
-            <input type="checkbox" id="delete-confirm-product" className="modal-toggle" />
+            <input type="checkbox" id="delete-confirm-admin" className="modal-toggle" />
             <div className="modal modal-bottom sm:modal-middle">
                 <div className="modal-box">
-                    <h3 className="font-bold text-lg text-red-500">Are you sure you want to delete {name}!</h3>
-                    <p className="py-4">{description.slice(0, 100)} ...</p>
+                    <h3 className="font-bold text-lg text-red-500">Are you sure you want to delete {email}!</h3>
                     <div className="modal-action">
                         <button onClick={handleDelete} className="btn btn-xs btn-error">Delete</button>
-                        <label htmlFor="delete-confirm-product" className="btn btn-xs">Cancel</label>
+                        <label htmlFor="delete-confirm-admin" className="btn btn-xs">Cancel</label>
                     </div>
                 </div>
             </div>
@@ -42,4 +41,4 @@ const ProductDeleteConfirm = ({ deletingProduct, refetch, setDeletingDoctor }) =
     );
 };
 
-export default ProductDeleteConfirm;
+export default UserDeleteConfirm;

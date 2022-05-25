@@ -1,7 +1,7 @@
 import React from 'react';
 import { toast } from 'react-toastify';
 
-const AdminRow = ({ user, index, refetch }) => {
+const AdminRow = ({ user, index, refetch, setRemoveAdmin }) => {
     const { email, admin } = user;
 
     const makeAdmin = () => {
@@ -22,7 +22,6 @@ const AdminRow = ({ user, index, refetch }) => {
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data);
                 if (data.modifiedCount > 0) {
                     refetch();
                     toast.success(`Admin removed`);
@@ -38,7 +37,7 @@ const AdminRow = ({ user, index, refetch }) => {
             <td>{!admin ? <button onClick={makeAdmin} className='btn btn-xs'>Make Admin</button> :
                 <button onClick={removeAdmin} className='btn btn-xs btn-error'>Remove Admin</button>
             }</td>
-            <td><button className='btn btn-xs'>Remove User</button></td>
+            <td><label htmlFor='delete-confirm-admin' onClick={() => setRemoveAdmin(user)} className='btn btn-xs'>Remove User</label></td>
         </tr>
     );
 };
