@@ -18,11 +18,8 @@ const Signup = () => {
     ] = useCreateUserWithEmailAndPassword(auth);
 
     const [token] = useToken(user);
-    const res = useUser();
-    if (res) {
-        console.log(res);
+    useUser();
 
-    }
     const [updateProfile, updating, updateError] = useUpdateProfile(auth);
 
 

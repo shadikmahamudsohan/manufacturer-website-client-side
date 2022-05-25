@@ -12,8 +12,8 @@ const useUser = async () => {
     if (!user?.email || !user?.displayName) {
         return;
     }
-    const res = await axios.put(`http://localhost:5000/update-user/${user?.email}`, (userData));
-
+    const res = await axios.put(`http://localhost:5000/update-user/${user?.email}`, userData);
+    // console.log(res);
 };
 
 export default useUser;
