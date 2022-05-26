@@ -5,6 +5,7 @@ import { signOut } from 'firebase/auth';
 import React, { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useForm } from 'react-hook-form';
+import { useQuery } from 'react-query';
 import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import auth from '../firebase/firebase.init';
@@ -14,25 +15,36 @@ const Purchase = () => {
     const [user, loading] = useAuthState(auth);
     const { register, formState: { errors }, handleSubmit, reset } = useForm();
     const { register: register2, formState: { errors: errors2 }, handleSubmit: handleSubmit2, reset: reset2 } = useForm();
-    const [product, setProduct] = useState();
+    // const [product, setProduct] = useState();
     const [disabled, setDisabled] = useState(false);
     const [quantityError, setQuantityError] = useState("");
     const { id } = useParams();
-    useEffect(() => {
-        fetch(`http://localhost:5000/get-single-product/${id}`, {
-            headers: {
-                authorization: `Bearer ${localStorage.getItem('accessToken')}`
-            }
-        })
-            .then(res => res.json())
-            .then(data => {
-                setProduct(data);
-                if (data.message === "Forbidden access") {
-                    toast.error("Forbidden access");
-                    signOut(auth);
-                };
-            });
-    }, [id]);
+    // useEffect(() => {
+    //     fetch(, {
+    //         headers: {
+    //             authorization: `Bearer ${localStorage.getItem('accessToken')}`
+    //         }
+    //     })
+    //         .then(res => res.json())
+    //         .then(data => {
+    //             setProduct(data);
+    //             if (data.message === "Forbidden access") {
+    //                 toast.error("Forbidden access");
+    //                 signOut(auth);
+    //             };
+    //         });
+    // }, [id]);
+    const url = `http://localhost:5000/get-single-product/${id}`;
+    const { data: product, isLoading } = useQuery(['booking', id], () => fetch(url, {
+        method: 'GET',
+        headers: {
+            authorization: `Bearer ${localStorage.getItem('accessToken')}`
+        }
+    }).then(res => res.json()));
+
+    if (loading || isLoading) {
+        return <LoadingSpinner />;
+    }
 
     const onSubmit = async data => {
         const info = {
@@ -84,9 +96,7 @@ const Purchase = () => {
             setDisabled(true);
         }
     };
-    if (loading) {
-        return <LoadingSpinner />;
-    }
+
 
     const handleError = e => {
         setQuantityError('');

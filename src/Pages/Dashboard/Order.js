@@ -28,7 +28,7 @@ const Order = ({ index, user, getData }) => {
                     <td><p className="text-sm text-success">Payed</p></td>
                 </> : <>
                     <td> <label htmlFor="delete-confirm-order" onClick={() => getData(user)} className='btn btn-xs btn-error'>Remove Order</label></td>
-                    <td><Link to={`/dashboard/payment/${_id}`} className='btn btn-xs btn-success'>Remove Order</Link></td>
+                    <td><Link to={`/dashboard/payment/${_id}`} className='btn btn-xs btn-success'>Pay</Link></td>
                 </>
             }
         </tr>
