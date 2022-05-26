@@ -64,6 +64,7 @@ const ManageProducts = () => {
                 deletingProduct={deletingProduct}
                 refetch={refetch}
                 setDeletingDoctor={setDeletingDoctor}
+                htmlFor="delete-confirm-product"
             />}
         </div>
     );

@@ -42,10 +42,10 @@ const MyProfile = () => {
         };
         const res = await axios.put(`http://localhost:5000/update-user/${user?.email}`, (userData));
         if (res) {
+            toast.success('Profile Updated');
+            reset();
             refetch();
         }
-        toast.success('Profile Updated');
-        reset();
     };
     return (
         <div className="flex justify-center items-center my-12">

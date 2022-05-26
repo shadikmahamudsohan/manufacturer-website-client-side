@@ -22,6 +22,7 @@ import MakeAdmin from './Pages/Dashboard/MakeAdmin';
 import RequireAdmin from './Pages/Authentication/RequireAdmin';
 import AddProduct from './Pages/Dashboard/AddProduct';
 import ManageProducts from './Pages/Dashboard/ManageProducts';
+import Payment from './Pages/Dashboard/Payment';
 
 function App() {
   useEffect(() => {
@@ -33,7 +34,9 @@ function App() {
         <ToastContainer />
         <Routes>
           <Route path='/' element={<Home />} />
-          <Route path='/purchase/:id' element={<Purchase />} />
+          <Route path='/purchase/:id' element={<RequireAuth>
+            <Purchase />
+          </RequireAuth>} />
           <Route path='/login' element={<Login />} />
           <Route path='/signup' element={<SignUp />} />
           <Route path="/dashboard" element={
@@ -53,6 +56,7 @@ function App() {
             <Route path="manage-product" element={<RequireAdmin>
               <ManageProducts />
             </RequireAdmin>}></Route>
+            <Route path="payment/:id" element={<Payment />} />
           </Route>
           <Route path='*' element={<NotFound />} />
         </Routes>

@@ -3,10 +3,10 @@ import React from 'react';
 import { toast } from 'react-toastify';
 import auth from '../../firebase/firebase.init';
 
-const ProductDeleteConfirm = ({ deletingProduct, refetch, setDeletingDoctor }) => {
-    const { name, _id, description } = deletingProduct;
+const ProductDeleteConfirm = ({ deletingProduct, refetch, setDeletingDoctor, htmlFor }) => {
+    const { productName, _id, description, email } = deletingProduct;
     const handleDelete = () => {
-        fetch(`http://localhost:5000/delete-product/${_id}`, {
+        fetch(`http://localhost:5000/delete-order/${_id}`, {
             method: 'DELETE',
             headers: {
                 authorization: `Bearer ${localStorage.getItem('accessToken')}`
@@ -27,14 +27,14 @@ const ProductDeleteConfirm = ({ deletingProduct, refetch, setDeletingDoctor }) =
     };
     return (
         <div>
-            <input type="checkbox" id="delete-confirm-product" className="modal-toggle" />
+            <input type="checkbox" id={htmlFor} className="modal-toggle" />
             <div className="modal modal-bottom sm:modal-middle">
                 <div className="modal-box">
-                    <h3 className="font-bold text-lg text-red-500">Are you sure you want to delete {name}!</h3>
-                    <p className="py-4">{description.slice(0, 100)} ...</p>
+                    <h3 className="font-bold text-lg text-red-500">Are you sure you want to delete {productName}!</h3>
+                    <p className="py-4">{description?.slice(0, 100)} This product is added by {email}</p>
                     <div className="modal-action">
                         <button onClick={handleDelete} className="btn btn-xs btn-error">Delete</button>
-                        <label htmlFor="delete-confirm-product" className="btn btn-xs">Cancel</label>
+                        <label htmlFor={htmlFor} className="btn btn-xs">Cancel</label>
                     </div>
                 </div>
             </div>
