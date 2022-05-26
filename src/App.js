@@ -23,6 +23,8 @@ import RequireAdmin from './Pages/Authentication/RequireAdmin';
 import AddProduct from './Pages/Dashboard/AddProduct';
 import ManageProducts from './Pages/Dashboard/ManageProducts';
 import Payment from './Pages/Dashboard/Payment';
+import Blogs from './Pages/Blogs';
+import ManageOrders from './Pages/Dashboard/ManageOrders';
 
 function App() {
   useEffect(() => {
@@ -38,6 +40,7 @@ function App() {
             <Purchase />
           </RequireAuth>} />
           <Route path='/login' element={<Login />} />
+          <Route path='/blogs' element={<Blogs />} />
           <Route path='/signup' element={<SignUp />} />
           <Route path="/dashboard" element={
             <RequireAuth>
@@ -55,6 +58,9 @@ function App() {
             </RequireAdmin>}></Route>
             <Route path="manage-product" element={<RequireAdmin>
               <ManageProducts />
+            </RequireAdmin>}></Route>
+            <Route path="manage-orders" element={<RequireAdmin>
+              <ManageOrders />
             </RequireAdmin>}></Route>
             <Route path="payment/:id" element={<Payment />} />
           </Route>

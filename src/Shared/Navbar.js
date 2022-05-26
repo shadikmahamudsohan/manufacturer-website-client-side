@@ -30,7 +30,7 @@ const Navbar = ({ children }) => {
             </NavLink>
         </li>
         <li>
-            <NavLink to='/blog' className='rounded-lg'>
+            <NavLink to='/blogs' className='rounded-lg'>
                 Blog
             </NavLink>
         </li>

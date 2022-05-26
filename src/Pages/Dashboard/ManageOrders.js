@@ -1,16 +1,18 @@
+
 import { signOut } from 'firebase/auth';
 import React, { useState } from 'react';
 import { useQuery } from 'react-query';
 import { toast } from 'react-toastify';
 import auth from '../../firebase/firebase.init';
 import LoadingSpinner from '../../Shared/LoadingSpinner';
+import AllOrder from './AllOrder';
 import ProductDeleteConfirm from './ProductDeleteConfirm';
 import ProductRow from './ProductRow';
 
-const ManageProducts = () => {
+const ManageOrders = () => {
     const [deletingProduct, setDeletingProduct] = useState(null);
 
-    const { data: users, isLoading, refetch } = useQuery('users', () => fetch('http://localhost:5000/get-all-product', {
+    const { data: users, isLoading, refetch } = useQuery('users', () => fetch('http://localhost:5000/get-order', {
         method: 'GET',
         headers: {
             authorization: `Bearer ${localStorage.getItem('accessToken')}`
@@ -42,13 +44,14 @@ const ManageProducts = () => {
                                 <th></th>
                                 <th>Avatar</th>
                                 <th>Name</th>
-                                <th>Make Admin</th>
-                                <th>Remove User</th>
+                                <th>Is Pending</th>
+                                <th>Ship</th>
+
                             </tr>
                         </thead>
                         <tbody>
                             {
-                                users?.map((user, index) => <ProductRow
+                                users?.map((user, index) => <AllOrder
                                     key={user._id}
                                     user={user}
                                     index={index}
@@ -64,10 +67,10 @@ const ManageProducts = () => {
                 deletingProduct={deletingProduct}
                 refetch={refetch}
                 setDeletingProduct={setDeletingProduct}
-                htmlFor="delete-confirm-product"
+                htmlFor="delete-confirm-order"
             />}
         </div>
     );
 };
 
-export default ManageProducts;
+export default ManageOrders;

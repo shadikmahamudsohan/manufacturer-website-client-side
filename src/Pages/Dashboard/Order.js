@@ -2,8 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const Order = ({ index, user, getData }) => {
-    const { _id, productName, image, price, quantity, location } = user;
-    const payed = false;
+    const { _id, productName, image, price, quantity, location, paid, transactionId } = user;
     return (
         <tr>
             <th>{index + 1}</th>
@@ -18,16 +17,14 @@ const Order = ({ index, user, getData }) => {
             <td>{quantity}</td>
             <td>{price}</td>
             <td>{location}</td>
-            {/* <td>{
-                payed ? <p className="text-sm text-success">
-                    Payed
-                </p> : <label htmlFor="delete-confirm-order" onClick={() => getData(user)} className='btn btn-xs'>Remove User</label>
-            }</td> */}
+
+            <td> <label htmlFor="delete-confirm-order" onClick={() => getData(user)} className={`btn btn-xs btn-error ${paid && "btn-disabled"}`}>Remove Order</label></td>
             {
-                payed ? <>
-                    <td><p className="text-sm text-success">Payed</p></td>
+                paid ? <>
+                    <td><p className="text-sm text-success">Paid</p></td>
+                    <td><p className="text-sm text-success">{transactionId}</p></td>
                 </> : <>
-                    <td> <label htmlFor="delete-confirm-order" onClick={() => getData(user)} className='btn btn-xs btn-error'>Remove Order</label></td>
+                    <td><p className="text-sm text-neutral">UnPaid</p></td>
                     <td><Link to={`/dashboard/payment/${_id}`} className='btn btn-xs btn-success'>Pay</Link></td>
                 </>
             }

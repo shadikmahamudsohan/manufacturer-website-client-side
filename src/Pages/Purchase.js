@@ -15,25 +15,14 @@ const Purchase = () => {
     const [user, loading] = useAuthState(auth);
     const { register, formState: { errors }, handleSubmit, reset } = useForm();
     const { register: register2, formState: { errors: errors2 }, handleSubmit: handleSubmit2, reset: reset2 } = useForm();
-    // const [product, setProduct] = useState();
     const [disabled, setDisabled] = useState(false);
+    const [disabled2, setDisabled2] = useState(false);
     const [quantityError, setQuantityError] = useState("");
+    const [quantityError2, setQuantityError2] = useState("");
     const { id } = useParams();
-    // useEffect(() => {
-    //     fetch(, {
-    //         headers: {
-    //             authorization: `Bearer ${localStorage.getItem('accessToken')}`
-    //         }
-    //     })
-    //         .then(res => res.json())
-    //         .then(data => {
-    //             setProduct(data);
-    //             if (data.message === "Forbidden access") {
-    //                 toast.error("Forbidden access");
-    //                 signOut(auth);
-    //             };
-    //         });
-    // }, [id]);
+    const [newId, setNewId] = useState('');
+
+
     const url = `http://localhost:5000/get-single-product/${id}`;
     const { data: product, isLoading } = useQuery(['booking', id], () => fetch(url, {
         method: 'GET',
@@ -47,37 +36,52 @@ const Purchase = () => {
     }
 
     const onSubmit = async data => {
-        const info = {
-            name: user?.displayName,
-            email: user?.email,
-            productName: product?.name,
-            image: product?.image,
-            location: data?.location,
-            phone: data?.phone
-        };
-        const res = await axios.put(`http://localhost:5000/update-order/${user?.email}`, (info), {
-            headers: {
-                authorization: `Bearer ${localStorage.getItem('accessToken')}`
+        const quantity = parseInt(data?.quantity);
+        console.log(data?.quantity);
+        const minQuantity = parseInt(product?.minOrder);
+        const maxQuantity = parseInt(product?.available);
+        const price = quantity * product?.parUnitPrice;
+        if (data?.quantity >= minQuantity && data?.quantity <= maxQuantity) {
+            const info = {
+                name: user?.displayName,
+                email: user?.email,
+                productName: product?.name,
+                image: product?.image,
+                location: data?.location,
+                phone: data?.phone,
+                quantity: data?.quantity,
+                price: price,
+            };
+            const res = await axios.post(`http://localhost:5000/add-order`, (info), {
+                headers: {
+                    authorization: `Bearer ${localStorage.getItem('accessToken')}`
+                }
+            });
+            if (res) {
+                setNewId(res?.data?.insertedId);
+                toast.success('Order Added');
+                reset();
             }
-        });
-        if (res) {
-            toast.success('Order Added');
-            reset();
+        } else if (quantity <= minQuantity && quantity < maxQuantity) {
+            setQuantityError(`Min Quantity ${minQuantity}`);
+            setDisabled(true);
         }
-
-
+        else if (quantity > minQuantity && quantity > maxQuantity) {
+            setQuantityError(`Max Quantity ${maxQuantity}`);
+            setDisabled(true);
+        }
     };
     const updateQuantity = async data => {
         const quantity = parseInt(data?.quantity);
         const minQuantity = parseInt(product?.minOrder);
         const maxQuantity = parseInt(product?.available);
         const price = quantity * product?.parUnitPrice;
-        if (quantity > minQuantity && quantity < maxQuantity) {
+        if (quantity >= minQuantity && quantity <= maxQuantity) {
             const input = {
                 quantity: data?.quantity,
                 price: price,
             };
-            const res = await axios.put(`http://localhost:5000/update-order/${user?.email}`, (input), {
+            const res = await axios.put(`http://localhost:5000/update-order/${newId}`, (input), {
                 headers: {
                     authorization: `Bearer ${localStorage.getItem('accessToken')}`
                 }
@@ -88,12 +92,12 @@ const Purchase = () => {
             }
             console.log(res);
         } else if (quantity < minQuantity && quantity < maxQuantity) {
-            setQuantityError(`Min Quantity ${minQuantity}`);
-            setDisabled(true);
+            setQuantityError2(`Min Quantity ${minQuantity}`);
+            setDisabled2(true);
         }
         else if (quantity > minQuantity && quantity > maxQuantity) {
-            setQuantityError(`Max Quantity ${maxQuantity}`);
-            setDisabled(true);
+            setQuantityError2(`Max Quantity ${maxQuantity}`);
+            setDisabled2(true);
         }
     };
 
@@ -101,6 +105,10 @@ const Purchase = () => {
     const handleError = e => {
         setQuantityError('');
         setDisabled(false);
+    };
+    const handleError2 = e => {
+        setQuantityError2('');
+        setDisabled2(false);
     };
     return (
         <div className='bg-gradient-to-l from-base-100 to-accent'>
@@ -183,7 +191,7 @@ const Purchase = () => {
                                         </label>
                                         <input
                                             type="number"
-                                            placeholder="Product Quantity"
+                                            placeholder="Phone number"
                                             className="input input-bordered w-full md:max-w-sm sm:max-w-full"
                                             {...register("phone", {
                                                 required: {
@@ -197,13 +205,6 @@ const Purchase = () => {
                                         </label>
                                     </div>
                                 </div>
-                                <input className='btn w-full text-white' type="submit" value="Submit" />
-                            </form>
-                        </div>
-                    </div>
-                    <div className="card  w-full bg-base-100 shadow-xl">
-                        <div className="card-body">
-                            <form onSubmit={handleSubmit2(updateQuantity)}>
                                 <div>
                                     <label className="label">
                                         <span className="label-text">Product Quantity</span>
@@ -213,9 +214,38 @@ const Purchase = () => {
                                         placeholder="Product Quantity"
                                         className="input input-bordered w-full"
                                         onFocus={handleError}
+                                        {...register("quantity", {
+                                            required: {
+                                                value: true,
+                                                message: 'quantity number is Required',
+                                            }
+                                        })}
+                                    />
+                                    <label className="label">
+                                        {errors.quantity?.type === 'required' && <span className="label-text-alt text-red-500">{errors?.quantity.message}</span>}
+                                        {quantityError && <span className="label-text-alt text-red-500">{quantityError}</span>}
+                                    </label>
+                                </div>
+                                <input disabled={disabled} className='btn w-full text-white' type="submit" value="Submit" />
+                            </form>
+                        </div>
+                    </div>
+                    <div className="card  w-full bg-base-100 shadow-xl">
+                        <div className="card-body">
+                            <div className="card-title">
+                                <h1 className='text-success'>You can change your quantity here.</h1>
+                            </div>
+                            <form onSubmit={handleSubmit2(updateQuantity)}>
+                                <div>
+                                    <label className="label">
+                                        <span className="label-text">Product Quantity</span>
+                                    </label>
+                                    <input
+                                        type="number"
+                                        placeholder="Product Quantity"
+                                        className="input input-bordered w-full"
+                                        onFocus={handleError2}
                                         {...register2("quantity", {
-                                            // min: product?.minOrder,
-                                            // max: product?.available,
                                             required: {
                                                 value: true,
                                                 message: 'Quantity is Required',
@@ -224,11 +254,11 @@ const Purchase = () => {
                                     />
                                     <label className="label">
                                         {errors2.quantity?.type === 'required' && <span className="label-text-alt text-red-500">{errors2?.quantity.message}</span>}
-                                        {quantityError && <span className="label-text-alt text-red-500">{quantityError}</span>}
+                                        {quantityError2 && <span className="label-text-alt text-red-500">{quantityError}</span>}
                                     </label>
                                 </div>
                                 <div>
-                                    <input disabled={disabled} className='btn w-full lg:w-3/12  text-white' type="submit" value="Update" />
+                                    <input disabled={disabled2} className='btn w-full lg:w-3/12  text-white' type="submit" value="Update" />
                                 </div>
                             </form>
                         </div>

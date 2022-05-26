@@ -3,7 +3,7 @@ import React from 'react';
 import { toast } from 'react-toastify';
 import auth from '../../firebase/firebase.init';
 
-const ProductDeleteConfirm = ({ deletingProduct, refetch, setDeletingDoctor, htmlFor }) => {
+const ProductDeleteConfirm = ({ deletingProduct, refetch, setDeletingProduct, htmlFor }) => {
     const { productName, _id, description, email } = deletingProduct;
     const handleDelete = () => {
         fetch(`http://localhost:5000/delete-order/${_id}`, {
@@ -17,7 +17,7 @@ const ProductDeleteConfirm = ({ deletingProduct, refetch, setDeletingDoctor, htm
                 if (data.deletedCount) {
                     toast.success(`Product:  is deleted`);
                     refetch();
-                    setDeletingDoctor(null);
+                    setDeletingProduct(null);
                 }
                 if (data.message === "Forbidden access") {
                     toast.error("Forbidden access");
