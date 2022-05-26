@@ -42,8 +42,7 @@ const ManageProducts = () => {
                                 <th></th>
                                 <th>Avatar</th>
                                 <th>Name</th>
-                                <th>Make Admin</th>
-                                <th>Remove User</th>
+                                <th>Remove Product</th>
                             </tr>
                         </thead>
                         <tbody>
