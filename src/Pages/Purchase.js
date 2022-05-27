@@ -18,7 +18,7 @@ const Purchase = () => {
     const [quantityError2, setQuantityError2] = useState("");
     const { id } = useParams();
     const [newId, setNewId] = useState('');
-
+    const [showQuantity, setShowQuantity] = useState(0);
 
     const url = `https://quiet-basin-59724.herokuapp.com/get-single-product/${id}`;
     const { data: product, isLoading } = useQuery(['booking', id], () => fetch(url, {
@@ -27,6 +27,7 @@ const Purchase = () => {
             authorization: `Bearer ${localStorage.getItem('accessToken')}`
         }
     }).then(res => res.json()));
+
 
     if (loading || isLoading) {
         return <LoadingSpinner />;
@@ -39,6 +40,7 @@ const Purchase = () => {
         const maxQuantity = parseInt(product?.available);
         const price = quantity * product?.parUnitPrice;
         if (data?.quantity >= minQuantity && data?.quantity <= maxQuantity) {
+            setShowQuantity(quantity);
             const info = {
                 name: user?.displayName,
                 email: user?.email,
@@ -78,6 +80,7 @@ const Purchase = () => {
                 quantity: data?.quantity,
                 price: price,
             };
+            setShowQuantity(quantity);
             const res = await axios.put(`https://quiet-basin-59724.herokuapp.com/update-order/${newId}`, (input), {
                 headers: {
                     authorization: `Bearer ${localStorage.getItem('accessToken')}`
@@ -252,13 +255,17 @@ const Purchase = () => {
                                     />
                                     <label className="label">
                                         {errors2.quantity?.type === 'required' && <span className="label-text-alt text-red-500">{errors2?.quantity.message}</span>}
-                                        {quantityError2 && <span className="label-text-alt text-red-500">{quantityError}</span>}
+                                        {quantityError2 && <span className="label-text-alt text-red-500">{quantityError2}</span>}
                                     </label>
                                 </div>
                                 <div>
                                     <input disabled={disabled2} className='btn w-full lg:w-3/12  text-white' type="submit" value="Update" />
                                 </div>
                             </form>
+                        </div>
+                        <div className="card-body">
+                            <h1 className="card-title">Your Quantity</h1>
+                            <h1 className="text-2xl font-bold text-primary">{showQuantity}</h1>
                         </div>
                     </div>
                 </div>
