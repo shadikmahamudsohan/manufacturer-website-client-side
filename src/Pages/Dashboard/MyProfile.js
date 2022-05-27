@@ -12,7 +12,7 @@ const MyProfile = () => {
     const { register, formState: { errors }, handleSubmit, reset } = useForm();
 
 
-    const url = `http://localhost:5000/get-user/${user?.email}`;
+    const url = `https://quiet-basin-59724.herokuapp.com/get-user/${user?.email}`;
     const { error, data, refetch } = useQuery('repoData', () =>
         fetch(url).then(res =>
             res.json()
@@ -40,7 +40,7 @@ const MyProfile = () => {
             eduction: data?.eduction,
             linkedIn: data?.linkedIn,
         };
-        const res = await axios.put(`http://localhost:5000/update-user/${user?.email}`, (userData));
+        const res = await axios.put(`https://quiet-basin-59724.herokuapp.com/update-user/${user?.email}`, (userData));
         if (res) {
             toast.success('Profile Updated');
             reset();
@@ -49,19 +49,19 @@ const MyProfile = () => {
     };
     return (
         <div className="flex justify-center items-center my-12">
-            <div class="card w-full lg:w-3/5 bg-base-100 shadow-xl relative">
+            <div className="card w-full lg:w-3/5 bg-base-100 shadow-xl relative">
                 <div className="mb-12">
-                    {user?.photoURL ? <div class="avatar online absolute right-5 top-5">
-                        <div class="w-12 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+                    {user?.photoURL ? <div className="avatar online absolute right-5 top-5">
+                        <div className="w-12 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
                             <img src={user?.photoURL} alt='' />
                         </div>
-                    </div> : <div class="avatar online placeholder absolute right-5 top-5">
-                        <div class="bg-neutral-focus text-neutral-content rounded-full w-12">
+                    </div> : <div className="avatar online placeholder absolute right-5 top-5">
+                        <div className="bg-neutral-focus text-neutral-content rounded-full w-12">
                             <span>{user?.email.slice(0, 2)}</span>
                         </div>
                     </div>}
                 </div>
-                <div class="card-body">
+                <div className="card-body">
                     {user &&
                         <>
                             <h1 className='text-xl'><strong>Name: </strong>{user?.displayName}</h1>

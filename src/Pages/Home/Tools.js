@@ -4,7 +4,7 @@ import SingleTools from './SingleTools';
 const Tools = () => {
     const [tools, setTools] = useState([]);
     useEffect(() => {
-        fetch("http://localhost:5000/get-product")
+        fetch("https://quiet-basin-59724.herokuapp.com/get-product")
             .then(res => res.json())
             .then(data => setTools(data));
     }, []);

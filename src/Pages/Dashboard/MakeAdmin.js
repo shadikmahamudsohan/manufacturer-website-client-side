@@ -9,7 +9,7 @@ import UserDeleteConfirm from './UserDeleteConfirm';
 
 const MakeAdmin = () => {
     const [removeAdmin, setRemoveAdmin] = useState(null);
-    const { data: users, isLoading, refetch } = useQuery('users', () => fetch('http://localhost:5000/all-user', {
+    const { data: users, isLoading, refetch } = useQuery('users', () => fetch('https://quiet-basin-59724.herokuapp.com/all-user', {
         method: 'GET',
         headers: {
             authorization: `Bearer ${localStorage.getItem('accessToken')}`

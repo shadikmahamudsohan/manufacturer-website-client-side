@@ -9,7 +9,7 @@ import ProductDeleteConfirm from './ProductDeleteConfirm';
 
 const MyOrders = () => {
     const [deletingProduct, setDeletingProduct] = useState(null);
-    const { data: users, isLoading, refetch } = useQuery('users', () => fetch('http://localhost:5000/get-order', {
+    const { data: users, isLoading, refetch } = useQuery('users', () => fetch('https://quiet-basin-59724.herokuapp.com/get-order', {
         method: 'GET',
         headers: {
             authorization: `Bearer ${localStorage.getItem('accessToken')}`
@@ -32,8 +32,8 @@ const MyOrders = () => {
 
     return (
         <div className="flex justify-center items-center my-12">
-            <div class="overflow-x-auto">
-                <table class="table w-full">
+            <div className="overflow-x-auto">
+                <table className="table w-full">
                     <thead>
                         <tr>
                             <th></th>

@@ -42,7 +42,7 @@ const AddProduct = () => {
                 const img = res?.data?.data?.url;
                 if (img) {
                     setImageUrl(img);
-                    axios.post("http://localhost:5000/add-product", productData, {
+                    axios.post("https://quiet-basin-59724.herokuapp.com/add-product", productData, {
                         headers: {
                             authorization: `Bearer ${localStorage.getItem('accessToken')}`
                         }

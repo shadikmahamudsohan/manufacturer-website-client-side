@@ -6,7 +6,7 @@ import auth from '../../firebase/firebase.init';
 const UserDeleteConfirm = ({ removeAdmin, refetch, setRemoveAdmin }) => {
     const { email } = removeAdmin;
     const handleDelete = () => {
-        fetch(`http://localhost:5000/delete-product/${email}`, {
+        fetch(`https://quiet-basin-59724.herokuapp.com/delete-product/${email}`, {
             method: 'DELETE',
             headers: {
                 authorization: `Bearer ${localStorage.getItem('accessToken')}`

@@ -15,7 +15,7 @@ const AddReviews = () => {
             description: data.description,
             rating: data.rating
         };
-        const res = await axios.post(`http://localhost:5000/add-review`, (review));
+        const res = await axios.post(`https://quiet-basin-59724.herokuapp.com/add-review`, (review));
         console.log(res);
         toast.success('Review Added');
         reset();

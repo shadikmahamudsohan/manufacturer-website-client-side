@@ -6,11 +6,11 @@ import { AiTwotoneLike } from 'react-icons/ai';
 
 const BusinessSummary = () => {
     return (
-        <div class="container mx-auto rounded-3xl hero py-8 my-32 bg-info " style={{ backgroundImage: "url('https://i.ibb.co/zJn87wn/World-Map-PNG-Clipart-1.png')" }}>
-            <div class="hero-content text-center">
-                <div class="text-base-100">
-                    <h1 class="text-5xl font-bold uppercase">Millions business trust us</h1>
-                    <h2 class="mt-3 text-2xl uppercase">Try to understand users expectation</h2>
+        <div className="container mx-auto rounded-3xl hero py-8 my-32 bg-info " style={{ backgroundImage: "url('https://i.ibb.co/zJn87wn/World-Map-PNG-Clipart-1.png')" }}>
+            <div className="hero-content text-center">
+                <div className="text-base-100">
+                    <h1 className="text-5xl font-bold uppercase">Millions business trust us</h1>
+                    <h2 className="mt-3 text-2xl uppercase">Try to understand users expectation</h2>
                     <div className="grid grid-cols-1 lg:grid-cols-4 gap-x-16 my-16">
                         <div className='flex flex-col items-center'>
                             <GiFlyingFlag className="text-5xl" />

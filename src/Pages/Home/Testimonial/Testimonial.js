@@ -1,14 +1,13 @@
-import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { set } from 'react-hook-form';
 import { BsFillArrowLeftCircleFill, BsFillArrowRightCircleFill } from 'react-icons/bs';
 import Slider from "react-slick";
 import './Testimonial.css';
+import Review from './Review';
 
 const Testimonial = () => {
     const [reviews, setReviews] = useState([]);
     useEffect(() => {
-        fetch('http://localhost:5000/get-review')
+        fetch('https://quiet-basin-59724.herokuapp.com/get-review')
             .then(res => res.json())
             .then(data => setReviews(data));
     }, []);
@@ -60,15 +59,11 @@ const Testimonial = () => {
     };
     return (
         <div className='container mx-auto mb-24'>
+            <h1 className="text-3xl text-center text-primary font-bold">See What our Client says</h1>
             <Slider {...settings} className="py-10 rounded-3xl">
-                {reviews.map((review, index) =>
-                    <div className='px-10 text-center' key={index}>
-                        <div className='px-10 py-6 pb-10 rounded-xl bg-primary md:min-h-full lg: text-base-100'>{
-                            <><p className='text-lg'>{review.description}</p>
-                                <p className='text-xl text-warning font-bold'>{review.rating}</p>
-                                <h2 className='text-xl'>{review.name}</h2></>
-                        }</div>
-                    </div>)}
+                {
+                    reviews.map(review => <Review key={review._id} review={review} />)
+                }
             </Slider>
         </div>
     );

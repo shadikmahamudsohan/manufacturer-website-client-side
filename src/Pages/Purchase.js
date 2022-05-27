@@ -23,7 +23,7 @@ const Purchase = () => {
     const [newId, setNewId] = useState('');
 
 
-    const url = `http://localhost:5000/get-single-product/${id}`;
+    const url = `https://quiet-basin-59724.herokuapp.com/get-single-product/${id}`;
     const { data: product, isLoading } = useQuery(['booking', id], () => fetch(url, {
         method: 'GET',
         headers: {
@@ -52,7 +52,7 @@ const Purchase = () => {
                 quantity: data?.quantity,
                 price: price,
             };
-            const res = await axios.post(`http://localhost:5000/add-order`, (info), {
+            const res = await axios.post(`https://quiet-basin-59724.herokuapp.com/add-order`, (info), {
                 headers: {
                     authorization: `Bearer ${localStorage.getItem('accessToken')}`
                 }
@@ -81,7 +81,7 @@ const Purchase = () => {
                 quantity: data?.quantity,
                 price: price,
             };
-            const res = await axios.put(`http://localhost:5000/update-order/${newId}`, (input), {
+            const res = await axios.put(`https://quiet-basin-59724.herokuapp.com/update-order/${newId}`, (input), {
                 headers: {
                     authorization: `Bearer ${localStorage.getItem('accessToken')}`
                 }

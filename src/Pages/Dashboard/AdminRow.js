@@ -5,7 +5,7 @@ const AdminRow = ({ user, index, refetch, setRemoveAdmin }) => {
     const { email, admin } = user;
 
     const makeAdmin = () => {
-        fetch(`http://localhost:5000/add-admin/${email}`, {
+        fetch(`https://quiet-basin-59724.herokuapp.com/add-admin/${email}`, {
             method: 'PUT',
         })
             .then(res => res.json())
@@ -17,7 +17,7 @@ const AdminRow = ({ user, index, refetch, setRemoveAdmin }) => {
             });
     };
     const removeAdmin = () => {
-        fetch(`http://localhost:5000/remove-admin/${email}`, {
+        fetch(`https://quiet-basin-59724.herokuapp.com/remove-admin/${email}`, {
             method: 'PUT',
         })
             .then(res => res.json())

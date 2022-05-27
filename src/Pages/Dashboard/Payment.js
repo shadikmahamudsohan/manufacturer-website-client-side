@@ -15,7 +15,7 @@ const stripePromise = loadStripe('pk_test_51L0erJFO4ypSR6bZcP2M1BZv8IdBPQHsUwLBg
 const Payment = () => {
     const { id } = useParams();
 
-    const url = `http://localhost:5000/get-single-order/${id}`;
+    const url = `https://quiet-basin-59724.herokuapp.com/get-single-order/${id}`;
 
     const { data, isLoading } = useQuery(['order', id], () => fetch(url, {
         method: 'GET',
@@ -35,9 +35,9 @@ const Payment = () => {
     }
     return (
         <div className='flex justify-center items-center my-12'>
-            <div class="card lg:w-1/2 pb-7 w-full bg-base-200 shadow-xl">
-                <div class="card-body">
-                    <h2 class="card-title text-success font-bold">Hi {data?.name}</h2>
+            <div className="card lg:w-1/2 pb-7 w-full bg-base-200 shadow-xl">
+                <div className="card-body">
+                    <h2 className="card-title text-success font-bold">Hi {data?.name}</h2>
                     <p>Your are location: <strong>{data?.location}</strong></p>
                     <p>Your product is: <strong>{data?.productName}</strong></p>
                     <p>Your total price: <strong>{data?.price}$</strong></p>

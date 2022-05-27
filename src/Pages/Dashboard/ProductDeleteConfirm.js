@@ -6,7 +6,7 @@ import auth from '../../firebase/firebase.init';
 const ProductDeleteConfirm = ({ deletingProduct, refetch, setDeletingProduct, htmlFor }) => {
     const { productName, _id, description, email } = deletingProduct;
     const handleDelete = () => {
-        fetch(`http://localhost:5000/delete-order/${_id}`, {
+        fetch(`https://quiet-basin-59724.herokuapp.com/delete-order/${_id}`, {
             method: 'DELETE',
             headers: {
                 authorization: `Bearer ${localStorage.getItem('accessToken')}`

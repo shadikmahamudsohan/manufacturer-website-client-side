@@ -12,7 +12,7 @@ const AllOrder = ({ index, user, getData }) => {
         }
     }, [status]);
     const handleShipped = async () => {
-        const res = await axios.put(`http://localhost:5000/update-order/${_id}`, ({ status: "approved" }), {
+        const res = await axios.put(`https://quiet-basin-59724.herokuapp.com/update-order/${_id}`, ({ status: "approved" }), {
             headers: {
                 authorization: `Bearer ${localStorage.getItem('accessToken')}`
             }
@@ -27,8 +27,8 @@ const AllOrder = ({ index, user, getData }) => {
     return (
         <tr>
             <th>{index + 1}</th>
-            <td><div class="avatar">
-                <div class="w-8 rounded">
+            <td><div className="avatar">
+                <div className="w-8 rounded">
                     <img src={image} alt="" />
                 </div>
             </div></td>

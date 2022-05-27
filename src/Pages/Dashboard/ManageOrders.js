@@ -12,7 +12,7 @@ import ProductRow from './ProductRow';
 const ManageOrders = () => {
     const [deletingProduct, setDeletingProduct] = useState(null);
 
-    const { data: users, isLoading, refetch } = useQuery('users', () => fetch('http://localhost:5000/get-order', {
+    const { data: users, isLoading, refetch } = useQuery('users', () => fetch('https://quiet-basin-59724.herokuapp.com/get-order', {
         method: 'GET',
         headers: {
             authorization: `Bearer ${localStorage.getItem('accessToken')}`

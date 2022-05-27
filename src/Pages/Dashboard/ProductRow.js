@@ -6,8 +6,8 @@ const ProductRow = ({ index, user, getData }) => {
     return (
         <tr>
             <th>{index + 1}</th>
-            <td><div class="avatar">
-                <div class="w-8 rounded">
+            <td><div className="avatar">
+                <div className="w-8 rounded">
                     <img src={image} alt="" />
                 </div>
             </div></td>

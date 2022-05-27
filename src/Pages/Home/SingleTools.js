@@ -16,10 +16,10 @@ const SingleTools = ({ data }) => {
         navigate(`purchase/${id}`);
     };
     return (
-        <div class="card lg:w-96 sm:w-full bg-base-100 hover:bg-base-300 shadow-xl hover:translate-y-[-10px] transition outline outline-0 outline-primary hover:outline-2" >
+        <div className="card lg:w-96 sm:w-full bg-base-100 hover:bg-base-300 shadow-xl hover:translate-y-[-10px] transition outline outline-0 outline-primary hover:outline-2" >
             <figure><img src={image} alt="Shoes" className='w-full' /></figure>
-            <div class="card-body">
-                <h2 class="card-title text-secondary">{name}</h2>
+            <div className="card-body">
+                <h2 className="card-title text-secondary">{name}</h2>
                 <p><strong>Per Unit Price: </strong>{parUnitPrice}$</p>
                 {seeMore && <>
                     <p><strong>Minimum Order: </strong>{minOrder}</p>
@@ -30,8 +30,8 @@ const SingleTools = ({ data }) => {
                     <div className="">
                         <button onClick={() => setSeeMore(!seeMore)} className='btn-link font-bold'>{seeMore ? 'See Less...' : 'See More...'}</button>
                     </div>
-                    <div class="">
-                        <button onClick={() => handlePurchase(_id)} class="btn btn-primary">Purchase</button>
+                    <div className="">
+                        <button onClick={() => handlePurchase(_id)} className="btn btn-primary">Purchase</button>
                     </div>
                 </div>
 

@@ -7,7 +7,7 @@ const useAdmin = () => {
     const [admin, setAdmin] = useState({});
     const [isLoading, setIsLoading] = useState(true);
     useEffect(() => {
-        fetch(`http://localhost:5000/get-user/${user?.email}`)
+        fetch(`https://quiet-basin-59724.herokuapp.com/get-user/${user?.email}`)
             .then(res => res.json())
             .then(data => {
                 setIsLoading(false);

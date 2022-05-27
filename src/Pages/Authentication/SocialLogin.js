@@ -27,12 +27,12 @@ const SocialLogin = () => {
     }
     return (
         <div>
-            <div class="divider my-3">OR</div>
+            <div className="divider my-3">OR</div>
             <div className="btn btn-base w-full flex justify-center items-center" onClick={handleLogin}>
                 <FcGoogle size={30} />
                 <p>Sign In With Google</p>
             </div>
-            {error && <div class="alert alert-error shadow-lg mt-5">
+            {error && <div className="alert alert-error shadow-lg mt-5">
                 <span>{error.message}</span></div>}
         </div>
     );
