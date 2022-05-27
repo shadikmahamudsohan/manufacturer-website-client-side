@@ -12,7 +12,7 @@ import ProductDeleteConfirm from './ProductDeleteConfirm';
 const MyOrders = () => {
     const [deletingProduct, setDeletingProduct] = useState(null);
     const [user, loading] = useAuthState(auth);
-    const { data: users, isLoading, refetch } = useQuery(['users', user], () => fetch(`http://localhost:5000/get-order/${user?.email}`, {
+    const { data: users, isLoading, refetch } = useQuery(['users', user], () => fetch(`https://quiet-basin-59724.herokuapp.com/get-order/${user?.email}`, {
         method: 'GET',
         headers: {
             authorization: `Bearer ${localStorage.getItem('accessToken')}`

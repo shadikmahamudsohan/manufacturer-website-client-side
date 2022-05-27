@@ -31,7 +31,7 @@ const Blogs = () => {
             <div className="my-5">
                 <h1 className="card-title mt-5">5. What is a unit test? Why should write unit tests?</h1>
                 <p className="text-md"><strong>Ans: </strong>
-                    Unit test is testing every unit of the code to see if there are any issues. It see the smallest testable module of an application.
+                    Unit test is testing every unit of the code to see if there are any issues. It see the smallest testable module of an application. It is done when the developer stop his development. We should write unit test because it is safe to find the bug first before then after development. If proper unit testing is done in early development, then it saves time and money in the end. That is why we should write unit tests.
                 </p>
             </div>
         </div>
