@@ -130,15 +130,6 @@ const Login = () => {
                     <p><small>New to ToolsNestBD? <Link className='text-primary' to="/signup">Create New Account!</Link></small></p>
                     <p><small>Forget your password? <span onClick={resetPassword} className='text-primary cursor-pointer'>Create New password!</span></small></p>
                     <SocialLogin />
-                    <div className="card border-black border mt-5">
-                        <div className="card-body">
-                            <div className="card-title">
-                                <p className="text-sm">Admin account</p>
-                            </div>
-                            <p className="text-sm">email: admin@gmail.com</p>
-                            <p className="text-sm">password: 123456</p>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>

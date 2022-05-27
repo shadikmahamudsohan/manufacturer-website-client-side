@@ -1,5 +1,6 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import { signOut } from 'firebase/auth';
+import React from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useForm } from 'react-hook-form';
 import { useQuery } from 'react-query';
@@ -14,10 +15,18 @@ const MyProfile = () => {
 
     const url = `https://quiet-basin-59724.herokuapp.com/get-user/${user?.email}`;
     const { error, data, refetch } = useQuery('repoData', () =>
-        fetch(url).then(res =>
-            res.json()
-        )
-    );
+        fetch(url, {
+            method: 'GET',
+            headers: {
+                authorization: `Bearer ${localStorage.getItem('accessToken')}`
+            }
+        }).then(res => res.json()));
+    if (data?.message === 'Forbidden access') {
+        signOut(auth);
+        toast.error('JWT expired or not found');
+        return;
+    }
+
 
     if (data?.email !== user?.email) {
         refetch();
@@ -40,11 +49,20 @@ const MyProfile = () => {
             eduction: data?.eduction,
             linkedIn: data?.linkedIn,
         };
-        const res = await axios.put(`https://quiet-basin-59724.herokuapp.com/update-user/${user?.email}`, (userData));
+        const res = await axios.put(`https://quiet-basin-59724.herokuapp.com/update-user/${user?.email}`, (userData), {
+            headers: {
+                authorization: `Bearer ${localStorage.getItem('accessToken')}`
+            }
+        });
         if (res) {
             toast.success('Profile Updated');
             reset();
             refetch();
+            if (res?.message === 'Forbidden access') {
+                signOut(auth);
+                toast.error('JWT expired or not found');
+                return;
+            }
         }
     };
     return (

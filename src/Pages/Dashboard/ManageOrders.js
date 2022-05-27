@@ -11,7 +11,7 @@ import OrderDeleteConfirm from './OrderDeleteConfirm';
 const ManageOrders = () => {
     const [deletingProduct, setDeletingProduct] = useState(null);
 
-    const { data: users, isLoading, refetch } = useQuery('users', () => fetch('https://quiet-basin-59724.herokuapp.com/get-order', {
+    const { data: users, isLoading, refetch } = useQuery('users', () => fetch('https://quiet-basin-59724.herokuapp.com/get-all-order', {
         method: 'GET',
         headers: {
             authorization: `Bearer ${localStorage.getItem('accessToken')}`
@@ -27,6 +27,7 @@ const ManageOrders = () => {
     const getData = (data) => {
         setDeletingProduct(data);
     };
+
 
     if (isLoading) {
         return <LoadingSpinner></LoadingSpinner>;
