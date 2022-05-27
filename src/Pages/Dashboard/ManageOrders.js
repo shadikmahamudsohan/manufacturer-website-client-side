@@ -6,8 +6,7 @@ import { toast } from 'react-toastify';
 import auth from '../../firebase/firebase.init';
 import LoadingSpinner from '../../Shared/LoadingSpinner';
 import AllOrder from './AllOrder';
-import ProductDeleteConfirm from './ProductDeleteConfirm';
-import ProductRow from './ProductRow';
+import OrderDeleteConfirm from './OrderDeleteConfirm';
 
 const ManageOrders = () => {
     const [deletingProduct, setDeletingProduct] = useState(null);
@@ -63,7 +62,7 @@ const ManageOrders = () => {
                     </table>
                 </div>
             </div>
-            {deletingProduct && <ProductDeleteConfirm
+            {deletingProduct && <OrderDeleteConfirm
                 deletingProduct={deletingProduct}
                 refetch={refetch}
                 setDeletingProduct={setDeletingProduct}

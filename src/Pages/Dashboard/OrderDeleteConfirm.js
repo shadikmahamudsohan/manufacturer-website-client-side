@@ -3,10 +3,10 @@ import React from 'react';
 import { toast } from 'react-toastify';
 import auth from '../../firebase/firebase.init';
 
-const ProductDeleteConfirm = ({ deletingProduct, refetch, setDeletingProduct, htmlFor }) => {
+const OrderDeleteConfirm = ({ deletingProduct, refetch, setDeletingProduct, htmlFor }) => {
     const { productName, _id, description, email } = deletingProduct;
     const handleDelete = () => {
-        fetch(`http://localhost:5000/remove-product/${_id}`, {
+        fetch(`https://quiet-basin-59724.herokuapp.com/delete-order/${_id}`, {
             method: 'DELETE',
             headers: {
                 authorization: `Bearer ${localStorage.getItem('accessToken')}`
@@ -15,7 +15,7 @@ const ProductDeleteConfirm = ({ deletingProduct, refetch, setDeletingProduct, ht
             .then(res => res.json())
             .then(data => {
                 if (data.deletedCount) {
-                    toast.success(`Product: ${productName} is deleted`);
+                    toast.success(`Order: ${productName} is deleted`);
                     refetch();
                     setDeletingProduct(null);
                 }
@@ -42,4 +42,4 @@ const ProductDeleteConfirm = ({ deletingProduct, refetch, setDeletingProduct, ht
     );
 };
 
-export default ProductDeleteConfirm;
+export default OrderDeleteConfirm;

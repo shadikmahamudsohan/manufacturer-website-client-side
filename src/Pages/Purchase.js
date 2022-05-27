@@ -1,7 +1,4 @@
-import { data } from 'autoprefixer';
 import axios from 'axios';
-import { error } from 'daisyui/src/colors';
-import { signOut } from 'firebase/auth';
 import React, { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useForm } from 'react-hook-form';
@@ -130,6 +127,7 @@ const Purchase = () => {
                             <h1 className='text-xl mb-2'><strong className='capitaliz'>parUnitPrice:</strong> {product?.parUnitPrice}</h1>
                             <h1 className='text-xl mb-2'><strong className='capitaliz'>minOrder:</strong> {product?.minOrder}</h1>
                             <h1 className='text-xl mb-2'><strong className='capitaliz'>available:</strong> {product?.available}</h1>
+                            <h1 className='text-md mb-2'><strong className='capitaliz'>order quantity:</strong> {product?.orderQuantity}</h1>
                             <h1 className='text-md mb-2'><strong className='capitaliz'>description:</strong> {product?.description}</h1>
                         </div>
                     </div>
