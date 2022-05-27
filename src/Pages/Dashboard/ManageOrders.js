@@ -24,9 +24,11 @@ const ManageOrders = () => {
         return;
     }
 
+
     const getData = (data) => {
         setDeletingProduct(data);
     };
+
 
 
     if (isLoading) {
