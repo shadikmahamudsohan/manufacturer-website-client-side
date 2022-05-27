@@ -1,9 +1,11 @@
 # ToolsNestBD
 
-Live link: [Create React App](https://github.com/facebook/create-react-app).
+Live link: [https://toolsnestbd.web.app/](https://toolsnestbd.web.app/).
 
 ## About the website:
-* this is a took tools manufacturer website.
-* here are 6 routs
-* you can order tools
-* there is a admin side too
+* It is a tools manufacturer website.
+* Here is a dashboard where you and admin can see many features.
+* Here you can order you tools and see them in the my order.
+* You can pay for your product with credit card. 
+* Admin can add product and manage the product.
+* Admin can approved the pending products.
