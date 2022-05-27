@@ -3,7 +3,7 @@ import { loadStripe } from '@stripe/stripe-js';
 import { signOut } from 'firebase/auth';
 import React from 'react';
 import { useQuery } from 'react-query';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import auth from '../../firebase/firebase.init';
 import LoadingSpinner from '../../Shared/LoadingSpinner';
@@ -14,6 +14,7 @@ const stripePromise = loadStripe('pk_test_51L0erJFO4ypSR6bZcP2M1BZv8IdBPQHsUwLBg
 
 const Payment = () => {
     const { id } = useParams();
+    let navigate = useNavigate();
 
     const url = `https://quiet-basin-59724.herokuapp.com/get-single-order/${id}`;
 
@@ -24,6 +25,12 @@ const Payment = () => {
         }
     }).then(res => res.json()));
 
+    if (data?.message === 'Forbidden access') {
+        navigate('/');
+        signOut(auth);
+        toast.error('JWT expired or not found');
+        return;
+    }
 
     if (isLoading) {
         return <LoadingSpinner />;

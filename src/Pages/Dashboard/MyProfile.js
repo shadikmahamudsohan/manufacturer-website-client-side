@@ -4,6 +4,7 @@ import React from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useForm } from 'react-hook-form';
 import { useQuery } from 'react-query';
+import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import auth from '../../firebase/firebase.init';
 import LoadingSpinner from '../../Shared/LoadingSpinner';
@@ -11,7 +12,7 @@ import LoadingSpinner from '../../Shared/LoadingSpinner';
 const MyProfile = () => {
     const [user, loading, updateError] = useAuthState(auth);
     const { register, formState: { errors }, handleSubmit, reset } = useForm();
-
+    let navigate = useNavigate();
 
     const url = `https://quiet-basin-59724.herokuapp.com/get-user/${user?.email}`;
     const { error, data, refetch } = useQuery('repoData', () =>
@@ -22,6 +23,7 @@ const MyProfile = () => {
             }
         }).then(res => res.json()));
     if (data?.message === 'Forbidden access') {
+        navigate('/');
         signOut(auth);
         toast.error('JWT expired or not found');
         return;
@@ -59,6 +61,7 @@ const MyProfile = () => {
             reset();
             refetch();
             if (res?.message === 'Forbidden access') {
+                navigate('/');
                 signOut(auth);
                 toast.error('JWT expired or not found');
                 return;

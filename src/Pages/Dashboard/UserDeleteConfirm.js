@@ -1,10 +1,12 @@
 import { signOut } from 'firebase/auth';
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import auth from '../../firebase/firebase.init';
 
 const UserDeleteConfirm = ({ removeAdmin, refetch, setRemoveAdmin }) => {
     const { email } = removeAdmin;
+    let navigate = useNavigate();
     const handleDelete = () => {
         fetch(`https://quiet-basin-59724.herokuapp.com/delete-product/${email}`, {
             method: 'DELETE',
@@ -20,6 +22,7 @@ const UserDeleteConfirm = ({ removeAdmin, refetch, setRemoveAdmin }) => {
                     setRemoveAdmin(null);
                 }
                 if (data.message === "Forbidden access") {
+                    navigate('/');
                     toast.error("Forbidden access");
                     signOut(auth);
                 };

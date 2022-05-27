@@ -1,6 +1,7 @@
 import { signOut } from 'firebase/auth';
 import React, { useState } from 'react';
 import { useQuery } from 'react-query';
+import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import auth from '../../firebase/firebase.init';
 import LoadingSpinner from '../../Shared/LoadingSpinner';
@@ -15,8 +16,9 @@ const MakeAdmin = () => {
             authorization: `Bearer ${localStorage.getItem('accessToken')}`
         }
     }).then(res => res.json()));
-
+    let navigate = useNavigate();
     if (users?.message === 'Forbidden access') {
+        navigate('/');
         signOut(auth);
         toast.error('JWT expired or not found');
         return;

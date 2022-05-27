@@ -8,10 +8,12 @@ import Order from './Order';
 import { useAuthState } from 'react-firebase-hooks/auth';
 
 import ProductDeleteConfirm from './ProductDeleteConfirm';
+import { useNavigate } from 'react-router-dom';
 
 const MyOrders = () => {
     const [deletingProduct, setDeletingProduct] = useState(null);
     const [user, loading] = useAuthState(auth);
+    let navigate = useNavigate();
     const { data: users, isLoading, refetch } = useQuery(['users', user], () => fetch(`https://quiet-basin-59724.herokuapp.com/get-order/${user?.email}`, {
         method: 'GET',
         headers: {
@@ -22,6 +24,7 @@ const MyOrders = () => {
     if (users?.message === 'Forbidden access') {
         signOut(auth);
         toast.error('JWT expired or not found');
+        navigate("/");
         return;
     }
 

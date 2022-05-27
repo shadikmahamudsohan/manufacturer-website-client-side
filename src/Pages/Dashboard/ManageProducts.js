@@ -1,6 +1,7 @@
 import { signOut } from 'firebase/auth';
 import React, { useState } from 'react';
 import { useQuery } from 'react-query';
+import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import auth from '../../firebase/firebase.init';
 import LoadingSpinner from '../../Shared/LoadingSpinner';
@@ -9,7 +10,7 @@ import ProductRow from './ProductRow';
 
 const ManageProducts = () => {
     const [deletingProduct, setDeletingProduct] = useState(null);
-
+    let navigate = useNavigate();
     const { data: users, isLoading, refetch } = useQuery('users', () => fetch('https://quiet-basin-59724.herokuapp.com/get-all-product', {
         method: 'GET',
         headers: {
@@ -18,6 +19,7 @@ const ManageProducts = () => {
     }).then(res => res.json()));
 
     if (users?.message === 'Forbidden access') {
+        navigate('/');
         signOut(auth);
         toast.error('JWT expired or not found');
         return;
