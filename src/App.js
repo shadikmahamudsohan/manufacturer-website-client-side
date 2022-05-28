@@ -25,6 +25,7 @@ import ManageProducts from './Pages/Dashboard/ManageProducts';
 import Payment from './Pages/Dashboard/Payment';
 import Blogs from './Pages/Blogs';
 import ManageOrders from './Pages/Dashboard/ManageOrders';
+import MyPortfolio from './Pages/MyPortfolio';
 
 function App() {
   useEffect(() => {
@@ -41,6 +42,7 @@ function App() {
           </RequireAuth>} />
           <Route path='/login' element={<Login />} />
           <Route path='/blogs' element={<Blogs />} />
+          <Route path='/myPortfolio' element={<MyPortfolio />} />
           <Route path='/signup' element={<SignUp />} />
           <Route path="/dashboard" element={
             <RequireAuth>
