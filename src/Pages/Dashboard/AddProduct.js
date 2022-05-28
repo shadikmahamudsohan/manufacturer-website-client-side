@@ -9,26 +9,16 @@ import LoadingSpinner from '../../Shared/LoadingSpinner';
 const AddProduct = () => {
     const [user, loading,] = useAuthState(auth);
     const { register, formState: { errors }, handleSubmit, reset } = useForm();
+    const [uploadLoading, setUploadLoading] = useState(false);
 
-    const [imageUrl, setImageUrl] = useState('');
-
-    if (loading) {
+    if (loading || uploadLoading) {
         return <LoadingSpinner />;
     }
 
     const imageStorageKey = '622c187076394b5238e64af64ad74a44';
 
     const onSubmit = async data => {
-        const productData = {
-            userName: user?.displayName,
-            email: user?.email,
-            name: data?.name,
-            parUnitPrice: data?.price,
-            minOrder: data?.minOrder,
-            available: data?.available,
-            description: data?.description,
-            image: imageUrl,
-        };
+        setUploadLoading(true);
         const image = data?.image[0];
 
         const formData = new FormData();
@@ -39,8 +29,17 @@ const AddProduct = () => {
         axios.post(url, formData)
             .then(res => {
                 const img = res?.data?.data?.url;
+                const productData = {
+                    userName: user?.displayName,
+                    email: user?.email,
+                    name: data?.name,
+                    parUnitPrice: data?.price,
+                    minOrder: data?.minOrder,
+                    available: data?.available,
+                    description: data?.description,
+                    image: res?.data?.data?.url,
+                };
                 if (img) {
-                    setImageUrl(img);
                     axios.post("https://quiet-basin-59724.herokuapp.com/add-product", productData, {
                         headers: {
                             authorization: `Bearer ${localStorage.getItem('accessToken')}`
@@ -49,6 +48,7 @@ const AddProduct = () => {
                         .then(res => {
                             toast.success('Product Added');
                             reset();
+                            setUploadLoading(false);
                         });
                 }
             }).catch(error => {
