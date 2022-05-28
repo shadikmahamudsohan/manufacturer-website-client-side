@@ -9,6 +9,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 
 import ProductDeleteConfirm from './ProductDeleteConfirm';
 import { useNavigate } from 'react-router-dom';
+import OrderDeleteConfirm from './OrderDeleteConfirm';
 
 const MyOrders = () => {
     const [deletingProduct, setDeletingProduct] = useState(null);
@@ -68,7 +69,7 @@ const MyOrders = () => {
                         </tbody>
                     </table>
                 </div>}
-            {deletingProduct && <ProductDeleteConfirm
+            {deletingProduct && <OrderDeleteConfirm
                 deletingProduct={deletingProduct}
                 refetch={refetch}
                 setDeletingDoctor={setDeletingProduct}
